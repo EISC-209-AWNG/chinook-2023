@@ -1,8 +1,11 @@
-from django.http import HttpResponse
+from django.shortcuts import get_list_or_404, get_object_or_404, render
 
+from .models import Album
 
 def album_list(request):
-    return HttpResponse("List of albums coming soon.")
+    albums = get_list_or_404(Album)
+    return render(request, 'disks/album_list.html', {'albums': albums})
 
 def album_details(request, album_id):
-    return HttpResponse("Details of album with id=%s coming soon." % album_id)
+    album = get_object_or_404(Album, pk=album_id)
+    return render(request, 'disks/album_details.html', {'album': album})
