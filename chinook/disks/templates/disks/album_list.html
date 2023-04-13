@@ -1,3 +1,14 @@
+{% extends 'base.html' %}
+
+{% comment %}
+Extend site-wide base HTML template located in main templates/ dir
+(same level as manage.py)
+{% endcomment %}
+
+{% block title %}Chinook Albums List{% endblock title%}
+
+{% block content %}
+
 <h1>Albums</h1>
 
 {% if albums %}
@@ -13,3 +24,5 @@
 {% else %}
     <p>No album available.</p>
 {% endif %}
+
+{% endblock content %}
