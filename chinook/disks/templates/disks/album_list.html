@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load bootstrap5 %} {# Yes, load it again even if base.html loads it #}
 
 {% comment %}
 Extend site-wide base HTML template located in main templates/ dir
@@ -15,10 +16,12 @@ Extend site-wide base HTML template located in main templates/ dir
 
 <div class="clearfix">
     <div class="float-right pb-3">
-        <form action="{% url 'disks:album_list' %}" method="post">
+        <form action="{% url 'disks:album_list' %}" method="post" class="form">
             {% csrf_token %}
-            {{ form }}
-            <input class="btn btn-primary" type="submit" value="Submit"/>
+            {% bootstrap_form form %}
+            {% buttons %}
+              <button type="submit" class="btn btn-primary">Filter</button>
+            {% endbuttons %}
         </form>
     </div>
 </div>
