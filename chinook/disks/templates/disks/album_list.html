@@ -9,20 +9,42 @@ Extend site-wide base HTML template located in main templates/ dir
 
 {% block content %}
 
-<h1>Albums</h1>
+<div class="row pb-3">
+    <h1>Albums</h1>
+</div>
 
+<div class="clearfix">
+    <div class="float-right pb-3">
+        <form action="{% url 'disks:album_list' %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input class="btn btn-primary" type="submit" value="Submit"/>
+        </form>
+    </div>
+</div>
+
+<div class="row">
 {% if albums %}
-    <form action="{% url 'disks:album_list' %}" method="post">
-        {% csrf_token %}
-        {{ form }}
-    </form>
-    <ul>
-    {% for album in albums %}
-        <li><a href="{% url 'disks:album_details' album.id %}">{{ album.title }}</a> by {{ album.artist.name }}</li>
-    {% endfor %}
-    </ul>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Artist</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for album in albums %}
+            <tr>
+                <td><a href="{% url 'disks:album_details' album.id %}">{{ album.title }}</a></td>
+                <td>{{ album.artist.name }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% else %}
-    <p>No album available.</p>
+    <div class="jumbotron"><i>No album available.</i></div>
 {% endif %}
+
+</div>
 
 {% endblock content %}
